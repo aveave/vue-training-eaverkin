@@ -12,11 +12,13 @@
             <label>{{book.price}}</label>
             <label>{{book.category}}</label>
         </div>
-        <button @click="removeBook"> x </button>
+        <button @click="deleteBook(index)"> x </button>
     </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
     export default {
         name: 'Book',
         data: function () {
@@ -29,11 +31,9 @@
             index: Number
         },
         methods: {
-            removeBook() {
-                this.$emit('removeBook', this.index);
-            },
+            ...mapMutations('book', ['deleteBook']),
             selectBook() {
-                this.$emit('selectBook', this.book);
+                this.$router.push({name: 'book', params: {bookId: this.index}});
             }
         }
     }

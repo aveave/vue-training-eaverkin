@@ -8,11 +8,13 @@
             <label>{{author.surname}}</label>
             <label>{{author.age}}</label>
         </div>
-        <button @click="removeAuthor"> x </button>
+        <button @click="deleteAuthor(index)"> x </button>
     </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
     export default {
         name: 'Author',
         data: function () {
@@ -25,11 +27,9 @@
             index: Number
         },
         methods: {
-            removeAuthor() {
-                this.$emit('removeAuthor', this.index);
-            },
+            ...mapMutations('author', ['deleteAuthor']),
             selectAuthor() {
-                this.$emit('selectAuthor', this.author);
+                this.$router.push({name: 'author', params: {authorId: this.author.id}});
             },
             authorHighlight() {
                 this.isAuthorHighlighted=true;
