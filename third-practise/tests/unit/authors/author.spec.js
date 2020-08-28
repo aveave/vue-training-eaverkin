@@ -1,45 +1,65 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
+import sinon from 'sinon';
 
-import AuthorsList from '../../../src/views/authors/AuthorsList';
-import author from '../../../src/store/modules/author';
+import AuthorDetails from '../../../src/views/authors/AuthorDetails';
 
+const localVue = createLocalVue()
 
-const localVue = createLocalVue();
+localVue.use(Vuex)
 
-localVue.use(Vuex);
+describe('Test Author details form', () => {
 
-describe('AuthorsList.vue', () => {
+    let store
+    let getters;
 
-    let state;
-    let store;
+    let authorWrapper;
 
     beforeEach(() => {
 
-        state = {
-            authors: [
-                { id: 0, name: 'Leo', surname: "Tolstoy", age: 54 },
-                { id: 1, name: 'John', surname: "Doe", age: 33 },
-            ]
+        getters = {
+            getAuthorById: () => {return {id: 0, name: 'Leo', surname: "Tolstoy", age: 54 } },
         },
 
-            store = new Vuex.Store({
-                modules: {
-                    author: {
-                        namespaced: true,
-                        state,
-                        getters: author.getters,
-                        mutations: author.mutations
-                    }
+        store = new Vuex.Store({
+            modules: {
+                author: {
+                    namespaced: true,
+                    getters
                 }
-            })
+            }
+        })
+
+        authorWrapper = shallowMount(AuthorDetails) 
+          
+        authorWrapper = shallowMount(AuthorDetails, 
+            {store, 
+             localVue, 
+             propsData: {
+                isAuthorUpdated: true
+        }
+    }); 
     })
 
-    it('Component mounted without error', () => {
-        const header = 'Authors list'
-        const wrapper = shallowMount(AuthorsList, {
-            store, localVue, propsData: { header }
-        })
-        expect(wrapper.text()).toMatch(header)
+    test('AuthorDetails component mounts', () => {
+        expect(authorWrapper.exists()).toBe(true)
+    })
+
+    test('AuthorDetails form is displayed', () => {
+        console.log(authorWrapper.classes());
+        expect(authorWrapper.classes()).toContain('author');
+    })
+
+    test('User creates new author', () => {
+        const clickHandler = sinon.stub();
+
+        const authorCreateWrapper = shallowMount(AuthorDetails, {propsData: {isAuthorCreated: true, clickHandler}});
+        authorCreateWrapper.find('.btn-author').trigger('click')
+        expect(clickHandler.called).toBe(true)
+    })
+
+    test('AuthorDetails form is filled with author data', () => {
+        const inputName = authorWrapper.find({name: "name"});
+        expect(inputName.text()).toBe(getters.getAuthorById().name);
     })
 })

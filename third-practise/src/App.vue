@@ -24,7 +24,7 @@
     }),
     methods: {
       openStartPage() {
-        this.$router.push({name: 'start-page'}).catch(() => {});
+        this.$router.push({ name: 'start-page' }).catch(() => { });
       }
     }
   };

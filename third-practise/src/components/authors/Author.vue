@@ -1,9 +1,7 @@
 <template>
     <div class="author_view" :class="{author_highlight: isAuthorHighlighted}">
-        <div class="author_label" 
-        @click="selectAuthor"
-        @mouseover="isAuthorHighlighted = true"
-        @mouseleave="isAuthorHighlighted = false">
+        <div class="author_label" @click="selectAuthor" @mouseover="isAuthorHighlighted = true"
+            @mouseleave="isAuthorHighlighted = false">
             <label>{{author.name}}</label>
             <label>{{author.surname}}</label>
             <label>{{author.age}}</label>
@@ -13,7 +11,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+    import { mapMutations } from 'vuex';
 
     export default {
         name: 'Author',
@@ -29,10 +27,10 @@ import { mapMutations } from 'vuex';
         methods: {
             ...mapMutations('author', ['deleteAuthor']),
             selectAuthor() {
-                this.$router.push({name: 'author', params: {authorId: this.author.id}});
+                this.$router.push({ name: 'author', params: { authorId: this.author.id } });
             },
             authorHighlight() {
-                this.isAuthorHighlighted=true;
+                this.isAuthorHighlighted = true;
             }
         }
     }
@@ -40,10 +38,11 @@ import { mapMutations } from 'vuex';
 
 <style>
     .author_view {
-         border: solid;
-        width: 350px; 
+        border: solid;
+        width: 350px;
         display: flex;
     }
+
     .author_label {
         display: flex;
         width: 300px;

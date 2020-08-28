@@ -3,24 +3,25 @@
         <h3 class="book-header" v-if="isBookCreated">Create new Book</h3>
         <h3 class="book-header" v-if="isBookUpdated">Book details</h3>
 
-        <v-text-field v-model="book.name" :counter="20" label="Name" required></v-text-field>
+        <v-text-field name="name" v-model="book.name" :counter="20" label="Name" required></v-text-field>
 
-        <v-text-field v-model="book.author" label="Author" required></v-text-field>
+        <v-text-field name="author" v-model="book.author" label="Author" required></v-text-field>
 
-        <v-text-field v-model="book.description" label="Description" required></v-text-field>
+        <v-text-field name="description" v-model="book.description" label="Description" required></v-text-field>
 
-        <v-text-field v-model="book.tags" label="Tags" required></v-text-field>
+        <v-text-field name="tags" v-model="book.tags" label="Tags" required></v-text-field>
 
-        <v-text-field v-model="book.price" label="Price" required></v-text-field>
+        <v-text-field name="price" v-model="book.price" label="Price" required></v-text-field>
 
-        <v-text-field v-model="book.category" label="Category" required></v-text-field>
+        <v-text-field name="category" v-model="book.category" label="Category" required></v-text-field>
 
         <v-btn rounded color="primary" class="btn-book" @click="onBookCreate" v-if="isBookCreated">Create</v-btn>
 
         <div class="btn-book-details">
-        <v-btn rounded color="primary" class="btn-book btn-book-update" @click="onBookUpdate" v-if="isBookUpdated">Update</v-btn>
+            <v-btn rounded color="primary" class="btn-book btn-book-update" @click="onBookUpdate" v-if="isBookUpdated">
+                Update</v-btn>
 
-        <v-btn rounded color="error" class="btn-book" @click="onBookDelete" v-if="isBookUpdated">Remove</v-btn>
+            <v-btn rounded color="error" class="btn-book" @click="onBookDelete" v-if="isBookUpdated">Remove</v-btn>
         </div>
     </div>
 </template>
@@ -53,9 +54,7 @@
             }
         },
         methods: {
-            ...mapMutations('book', ['createBook']),
-            ...mapMutations('book', ['updateBook']),
-            ...mapMutations('book', ['deleteBook']),
+            ...mapMutations('book', { createBook: 'createBook', updateBook: 'updateBook', deleteBook: 'deleteBook' }),
             onBookCreate() {
                 this.createBook(this.book);
                 this.$router.push({ name: 'books' });

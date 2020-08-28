@@ -1,32 +1,17 @@
 <template>
-        <v-form
-          ref="form"
-          class="author"
-        >
-          <v-text-field
-            v-model="author.name"
-            :counter="10"
-            label="Name"
-            required
-          ></v-text-field>
-    
-          <v-text-field
-            v-model="author.surname"
-            label="Surname"
-            required
-          ></v-text-field>
+    <v-form ref="form" class="author">
 
-          <v-text-field
-          v-model="author.age"
-          label="Age"
-          required
-        ></v-text-field>
+        <v-text-field v-model="author.name" :counter="10" label="Name" required name="name"></v-text-field>
+
+        <v-text-field v-model="author.surname" label="Surname" required name="surname"></v-text-field>
+
+        <v-text-field v-model="author.age" label="Age" required name="age"></v-text-field>
 
         <v-btn rounded color="primary" class="btn-author" @click="onAuthorCreate" v-if="isAuthorCreated">Create</v-btn>
 
         <v-btn rounded color="primary" class="btn-author" @click="onAuthorUpdate" v-if="isAuthorUpdated">Update</v-btn>
-    
-        </v-form>
+
+    </v-form>
 </template>
 
 <script>
@@ -55,8 +40,7 @@
 
         },
         methods: {
-            ...mapMutations('author', ['createAuthor']),
-            ...mapMutations('author', ['updateAuthor']),
+            ...mapMutations('author', { createAuthor: 'createAuthor', updateAuthor: 'updateAuthor' }),
 
             onAuthorCreate() {
                 this.createAuthor(this.author);

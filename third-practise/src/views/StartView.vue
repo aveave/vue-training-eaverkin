@@ -44,7 +44,7 @@
         },
         methods: {
             makeRoute(route) {
-                this.$router.push({name: route});
+                this.$router.push({ name: route });
             }
         }
     }
