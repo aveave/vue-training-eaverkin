@@ -1,10 +1,14 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
+import Vue from 'vue';
+import Vuetify from 'vuetify';
 import VueRouter from 'vue-router'
 
 import AuthorsList from '../../../src/views/authors/AuthorsList';
 import author from '../../../src/store/modules/author';
 
+
+Vue.use(Vuetify);
 
 const localVue = createLocalVue();
 

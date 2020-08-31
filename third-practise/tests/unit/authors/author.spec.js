@@ -1,8 +1,12 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
+import Vue from 'vue';
+import Vuetify from 'vuetify';
 import sinon from 'sinon';
 
 import AuthorDetails from '../../../src/views/authors/AuthorDetails';
+
+Vue.use(Vuetify);
 
 const localVue = createLocalVue()
 
@@ -53,9 +57,23 @@ describe('Test Author details form', () => {
     test('User creates new author', () => {
         const clickHandler = sinon.stub();
 
-        const authorCreateWrapper = shallowMount(AuthorDetails, {propsData: {isAuthorCreated: true, clickHandler}});
-        authorCreateWrapper.find('.btn-author').trigger('click')
-        expect(clickHandler.called).toBe(true)
+        const $route = {
+            params: { authorId: 1 }
+        };
+
+
+
+        const authorCreateWrapper = shallowMount(AuthorDetails, 
+                                                { propsData: { 
+                                                    isAuthorCreated: true, 
+                                                    clickHandler 
+                                                    },
+                                                    mocks: {
+                                                        $route
+                                                    }
+                                                });
+        authorCreateWrapper.find('.btn-author').trigger('click');
+        expect(clickHandler.called).toBe(true);
     })
 
     test('AuthorDetails form is filled with author data', () => {
