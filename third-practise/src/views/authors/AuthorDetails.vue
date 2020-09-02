@@ -1,7 +1,7 @@
 <template>
     <v-form ref="form" class="author">
 
-        <v-text-field v-model="author.name" :counter="10" label="Name" required name="name"></v-text-field>
+        <v-text-field id ="authorName" v-model="author.name" :counter="10" label="Name" required name="name"></v-text-field>
 
         <v-text-field v-model="author.surname" label="Surname" required name="surname"></v-text-field>
 
